@@ -5,7 +5,7 @@ const HomeStyles = StyleSheet.create({
   Outer: {
     height: '100%',
     width: '100%',
-    backgroundColor: Colours.Main,
+    backgroundColor: Colours.Primary,
   },
   TitleBar: {
     height: '20%',
@@ -58,6 +58,16 @@ const HomeStyles = StyleSheet.create({
     marginBottom: 10,
     color: Colours.Secondary,
   },
+  SettingsMenu: {
+    backgroundColor: Colours.Secondary,
+    borderWidth: 1,
+    borderColor: Colours.Primary,
+    padding: 10,
+    position: 'absolute',
+    left: 0,
+    zIndex: 999,
+  },
+  SettingsOption: {},
 });
 
 export default HomeStyles;
