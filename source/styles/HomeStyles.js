@@ -67,7 +67,9 @@ const HomeStyles = StyleSheet.create({
     left: 0,
     zIndex: 999,
   },
-  SettingsOption: {},
+  SettingsMenu: {
+    padding: 10,
+  },
 });
 
 export default HomeStyles;
