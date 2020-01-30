@@ -17,7 +17,7 @@ const HomeStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   Title: {
-    color: 'white',
+    color: Colours.Secondary,
     fontSize: 50,
     marginLeft: 50,
   },
@@ -30,6 +30,33 @@ const HomeStyles = StyleSheet.create({
   },
   SettingsButtonImage: {
     width: 50,
+  },
+  HomeMainOuter: {
+    height: '80%',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  StartRideTitle: {
+    fontSize: 35,
+    color: Colours.Secondary,
+  },
+  StartRideButton: {
+    width: 250,
+    height: 250,
+    marginBottom: 50,
+    marginTop: 20,
+  },
+  DeviceBatteryOuter: {
+    flexDirection: 'row',
+  },
+  DeviceBatteryIcon: {
+    height: 20,
+    width: 20,
+  },
+  DeviceBatteryText: {
+    fontSize: 15,
+    marginBottom: 10,
+    color: Colours.Secondary,
   },
 });
 
