@@ -21,14 +21,8 @@ const HomeStyles = StyleSheet.create({
     fontSize: 50,
     marginLeft: 50,
   },
-  SettingsButtonOuter: {
-    justifyContent: 'center',
-  },
   SettingsButton: {
     width: 10,
-    width: 50,
-  },
-  SettingsButtonImage: {
     width: 50,
   },
   HomeMainOuter: {
@@ -57,18 +51,6 @@ const HomeStyles = StyleSheet.create({
     fontSize: 15,
     marginBottom: 10,
     color: Colours.Secondary,
-  },
-  SettingsMenu: {
-    backgroundColor: Colours.Secondary,
-    borderWidth: 1,
-    borderColor: Colours.Primary,
-    padding: 10,
-    position: 'absolute',
-    left: 0,
-    zIndex: 999,
-  },
-  SettingsMenu: {
-    padding: 10,
   },
 });
 

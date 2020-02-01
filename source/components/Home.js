@@ -1,3 +1,4 @@
+// 3rd Party
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -15,7 +16,14 @@ import {
   MenuOption,
   MenuTrigger,
 } from 'react-native-popup-menu';
+
+// Styles
 import HomeStyles from '../styles/HomeStyles';
+import SharedStyles from '../styles/SharedStyles';
+import Colours from '../styles/Colours';
+
+// Components
+import SettingsMenu from './SettingsMenu';
 
 function Home() {
   let GetDeviceBattery = () => {
@@ -25,25 +33,13 @@ function Home() {
   return (
     <MenuProvider>
       <SafeAreaView>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar barStyle="light-content" backgroundColor={Colours.Primary} />
         <View style={HomeStyles.Outer}>
           <View style={HomeStyles.TitleBar}>
             <View style={HomeStyles.TitleOuter}>
               <Text style={HomeStyles.Title}>CycleVision</Text>
             </View>
-            <View style={HomeStyles.SettingsButtonOuter}>
-              <Menu>
-                <MenuTrigger>
-                  <Image
-                    style={HomeStyles.SettingsButtonImage}
-                    source={require('../resources/SettingsMenuButton.png')}
-                  />
-                </MenuTrigger>
-                <MenuOptions style={HomeStyles.SettingsMenu}>
-                  <MenuOption onSelect={() => alert(`Settings`)} text="Settings" />
-                </MenuOptions>
-              </Menu>
-            </View>
+            <SettingsMenu />
           </View>
           <View style={HomeStyles.HomeMainOuter}>
             <Text style={HomeStyles.StartRideTitle}>Start Ride</Text>
