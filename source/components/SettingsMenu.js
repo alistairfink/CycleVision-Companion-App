@@ -11,7 +11,7 @@ import {
 // Styles
 import SharedStyles from '../styles/SharedStyles';
 
-function SettingsMenu() {
+function SettingsMenu({navigation: {navigate}}) {
   return (
     <View style={SharedStyles.Styles.SettingsButtonOuter}>
       <Menu>
@@ -22,7 +22,7 @@ function SettingsMenu() {
           />
         </MenuTrigger>
         <MenuOptions customStyles={SharedStyles.SettingsMenu}>
-          <MenuOption onSelect={() => alert(`Settings`)} text="Settings" />
+          <MenuOption onSelect={() => navigate('Settings')} text="Settings" />
         </MenuOptions>
       </Menu>
     </View>

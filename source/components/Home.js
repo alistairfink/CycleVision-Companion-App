@@ -25,7 +25,11 @@ import Colours from '../styles/Colours';
 // Components
 import SettingsMenu from './SettingsMenu';
 
-function Home() {
+function Home({navigation}) {
+  navigationOptions = {
+    header: null,
+  };
+
   let GetDeviceBattery = () => {
     return '100%';
   };
@@ -39,7 +43,7 @@ function Home() {
             <View style={HomeStyles.TitleOuter}>
               <Text style={HomeStyles.Title}>CycleVision</Text>
             </View>
-            <SettingsMenu />
+            <SettingsMenu navigation={navigation} />
           </View>
           <View style={HomeStyles.HomeMainOuter}>
             <Text style={HomeStyles.StartRideTitle}>Start Ride</Text>
