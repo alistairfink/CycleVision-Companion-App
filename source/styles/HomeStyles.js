@@ -19,7 +19,8 @@ const HomeStyles = StyleSheet.create({
   Title: {
     color: Colours.Secondary,
     fontSize: 50,
-    marginLeft: 50,
+    marginLeft: 45,
+    marginTop: -10,
   },
   SettingsButton: {
     width: 10,

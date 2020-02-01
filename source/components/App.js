@@ -13,7 +13,7 @@ const Navigator = createStackNavigator(
 	},
 	{
 		headerMode: 'none',
-		initialRouteName: 'Settings',
+		initialRouteName: 'Home',
 		defaultNavigationOptions: {
 			...TransitionPresets.SlideFromRightIOS,
 		},

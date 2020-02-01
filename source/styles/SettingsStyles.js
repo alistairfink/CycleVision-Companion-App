@@ -17,6 +17,7 @@ const SettingsStyles = StyleSheet.create({
   Title: {
     color: Colours.Secondary,
     fontSize: 50,
+    marginTop: -10,
   },
   SettingsItem: {
     flex: 1,
@@ -33,7 +34,7 @@ const SettingsStyles = StyleSheet.create({
   SettingsItemTitleOuter: {},
   SettingsItemTitle: {
     color: Colours.Secondary,
-    fontSize: 30,
+    fontSize: 25,
   },
   SettingsItemSubTitle: {
     color: Colours.Secondary,

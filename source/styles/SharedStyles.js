@@ -5,6 +5,7 @@ const SharedStyles = {
 	Styles: StyleSheet.create({
 		SettingsButtonOuter: {
 			justifyContent: 'center',
+			marginRight: 10,
 		},
 		SettingsButtonImage: {
 			height: 35,
