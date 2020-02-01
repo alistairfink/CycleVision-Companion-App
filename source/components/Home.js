@@ -26,10 +26,6 @@ import Colours from '../styles/Colours';
 import SettingsMenu from './SettingsMenu';
 
 function Home({navigation}) {
-  navigationOptions = {
-    header: null,
-  };
-
   let GetDeviceBattery = () => {
     return '100%';
   };
@@ -46,8 +42,10 @@ function Home({navigation}) {
             <SettingsMenu navigation={navigation} />
           </View>
           <View style={HomeStyles.HomeMainOuter}>
-            <Text style={HomeStyles.StartRideTitle}>Start Ride</Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Settings')}
+              style={HomeStyles.HomeStartOuter}>
+              <Text style={HomeStyles.StartRideTitle}>Start Ride</Text>
               <Image
                 style={HomeStyles.StartRideButton}
                 source={require('../resources/StartButton.png')}

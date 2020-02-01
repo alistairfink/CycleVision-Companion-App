@@ -11,23 +11,88 @@ import {
 } from 'react-native';
 
 // Styles
+import SettingsStyles from '../styles/SettingsStyles';
 import Colours from '../styles/Colours';
 
 // Components
+import BackButton from './BackButton';
 
-function Home() {
-  let GetDeviceBattery = () => {
-    return '100%';
-  };
-
+function Settings({navigation}) {
   return (
     <SafeAreaView>
       <StatusBar barStyle="light-content" backgroundColor={Colours.Primary} />
-      <View>
-        <Text>Test</Text>
+      <View style={SettingsStyles.Outer}>
+        <View style={SettingsStyles.TitleBar}>
+          <BackButton navigation={navigation} />
+          <View style={SettingsStyles.TitleOuter}>
+            <Text style={SettingsStyles.Title}>Settings</Text>
+          </View>
+        </View>
+        <ScrollView>
+          <TouchableOpacity style={SettingsStyles.SettingsItem}>
+            <Image
+              style={SettingsStyles.SettingsItemImage}
+              source={require('../resources/Navigation.png')}
+            />
+            <View style={SettingsStyles.SettingsItemTitleOuter}>
+              <Text style={SettingsStyles.SettingsItemTitle}>Navigation</Text>
+              <Text style={SettingsStyles.SettingsItemSubTitle}>
+                Maps and Navigation Settings
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={SettingsStyles.SettingsItem}>
+            <Image
+              style={SettingsStyles.SettingsItemImage}
+              source={require('../resources/Device.png')}
+            />
+            <View style={SettingsStyles.SettingsItemTitleOuter}>
+              <Text style={SettingsStyles.SettingsItemTitle}>Device</Text>
+              <Text style={SettingsStyles.SettingsItemSubTitle}>
+                Device and Network Settings
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={SettingsStyles.SettingsItem}>
+            <Image
+              style={SettingsStyles.SettingsItemImage}
+              source={require('../resources/Data.png')}
+            />
+            <View style={SettingsStyles.SettingsItemTitleOuter}>
+              <Text style={SettingsStyles.SettingsItemTitle}>Statistics</Text>
+              <Text style={SettingsStyles.SettingsItemSubTitle}>
+                Ant+ and Statistic Settings
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={SettingsStyles.SettingsItem}>
+            <Image
+              style={SettingsStyles.SettingsItemImage}
+              source={require('../resources/Account.png')}
+            />
+            <View style={SettingsStyles.SettingsItemTitleOuter}>
+              <Text style={SettingsStyles.SettingsItemTitle}>Account</Text>
+              <Text style={SettingsStyles.SettingsItemSubTitle}>
+                User Account Settings
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={SettingsStyles.SettingsItem}>
+            <Image
+              style={SettingsStyles.SettingsItemImage}
+              source={require('../resources/Info.png')}
+            />
+            <View style={SettingsStyles.SettingsItemTitleOuter}>
+              <Text style={SettingsStyles.SettingsItemTitle}>About</Text>
+              <Text style={SettingsStyles.SettingsItemSubTitle}>
+                Device and App Information
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
 }
 
-export default Home;
+export default Settings;

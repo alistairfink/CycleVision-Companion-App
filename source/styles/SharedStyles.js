@@ -10,6 +10,15 @@ const SharedStyles = {
 			height: 35,
 			width: 35,
 		},
+		BackButtonOuter: {
+			justifyContent: 'center',
+			marginLeft: 15,
+			marginRight: 20,
+		},
+		BackButtonImage: {
+			height: 40,
+			width: 40,
+		},
 	}),
 	SettingsMenu: {
 		optionsWrapper: StyleSheet.create({

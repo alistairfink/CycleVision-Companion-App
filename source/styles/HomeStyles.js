@@ -30,6 +30,9 @@ const HomeStyles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  HomeStartOuter: {
+    alignItems: 'center',
+  },
   StartRideTitle: {
     fontSize: 35,
     color: Colours.Secondary,
