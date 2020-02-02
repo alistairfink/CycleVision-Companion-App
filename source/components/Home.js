@@ -9,13 +9,6 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {
-  MenuProvider,
-  Menu,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-} from 'react-native-popup-menu';
 
 // Styles
 import HomeStyles from '../styles/HomeStyles';
@@ -31,39 +24,37 @@ function Home({navigation}) {
   };
 
   return (
-    <MenuProvider>
-      <SafeAreaView>
-        <StatusBar barStyle="light-content" backgroundColor={Colours.Primary} />
-        <View style={HomeStyles.Outer}>
-          <View style={HomeStyles.TitleBar}>
-            <View style={HomeStyles.TitleOuter}>
-              <Text style={HomeStyles.Title}>CycleVision</Text>
-            </View>
-            <SettingsMenu navigation={navigation} />
+    <SafeAreaView>
+      <StatusBar barStyle="light-content" backgroundColor={Colours.Primary} />
+      <View style={HomeStyles.Outer}>
+        <View style={HomeStyles.TitleBar}>
+          <View style={HomeStyles.TitleOuter}>
+            <Text style={HomeStyles.Title}>CycleVision</Text>
           </View>
-          <View style={HomeStyles.HomeMainOuter}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Settings')}
-              style={HomeStyles.HomeStartOuter}>
-              <Text style={HomeStyles.StartRideTitle}>Start Ride</Text>
-              <Image
-                style={HomeStyles.StartRideButton}
-                source={require('../resources/StartButton.png')}
-              />
-            </TouchableOpacity>
-            <View style={HomeStyles.DeviceBatteryOuter}>
-              <Image
-                style={HomeStyles.DeviceBatteryIcon}
-                source={require('../resources/Battery.png')}
-              />
-              <Text style={HomeStyles.DeviceBatteryText}>
-                {GetDeviceBattery()}
-              </Text>
-            </View>
+          <SettingsMenu navigation={navigation} />
+        </View>
+        <View style={HomeStyles.HomeMainOuter}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('StartRide')}
+            style={HomeStyles.HomeStartOuter}>
+            <Text style={HomeStyles.StartRideTitle}>Start Ride</Text>
+            <Image
+              style={HomeStyles.StartRideButton}
+              source={require('../resources/StartButton.png')}
+            />
+          </TouchableOpacity>
+          <View style={HomeStyles.DeviceBatteryOuter}>
+            <Image
+              style={HomeStyles.DeviceBatteryIcon}
+              source={require('../resources/Battery.png')}
+            />
+            <Text style={HomeStyles.DeviceBatteryText}>
+              {GetDeviceBattery()}
+            </Text>
           </View>
         </View>
-      </SafeAreaView>
-    </MenuProvider>
+      </View>
+    </SafeAreaView>
   );
 }
 
