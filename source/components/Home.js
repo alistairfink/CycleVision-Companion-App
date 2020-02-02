@@ -43,12 +43,12 @@ function Home({navigation}) {
               source={require('../resources/StartButton.png')}
             />
           </TouchableOpacity>
-          <View style={HomeStyles.DeviceBatteryOuter}>
+          <View style={SharedStyles.Styles.DeviceBatteryOuter}>
             <Image
-              style={HomeStyles.DeviceBatteryIcon}
+              style={SharedStyles.Styles.DeviceBatteryIcon}
               source={require('../resources/Battery.png')}
             />
-            <Text style={HomeStyles.DeviceBatteryText}>
+            <Text style={SharedStyles.Styles.DeviceBatteryText}>
               {GetDeviceBattery()}
             </Text>
           </View>

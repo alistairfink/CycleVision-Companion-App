@@ -44,18 +44,6 @@ const HomeStyles = StyleSheet.create({
     marginBottom: 50,
     marginTop: 20,
   },
-  DeviceBatteryOuter: {
-    flexDirection: 'row',
-  },
-  DeviceBatteryIcon: {
-    height: 20,
-    width: 20,
-  },
-  DeviceBatteryText: {
-    fontSize: 15,
-    marginBottom: 10,
-    color: Colours.Secondary,
-  },
 });
 
 export default HomeStyles;

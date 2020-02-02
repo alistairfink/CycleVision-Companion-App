@@ -17,8 +17,20 @@ const SharedStyles = {
 			marginRight: 20,
 		},
 		BackButtonImage: {
-			height: 40,
-			width: 40,
+			height: 35,
+			width: 35,
+		},
+		DeviceBatteryOuter: {
+			flexDirection: 'row',
+		},
+		DeviceBatteryIcon: {
+			height: 20,
+			width: 20,
+		},
+		DeviceBatteryText: {
+			fontSize: 15,
+			marginBottom: 10,
+			color: Colours.Secondary,
 		},
 	}),
 	SettingsMenu: {
