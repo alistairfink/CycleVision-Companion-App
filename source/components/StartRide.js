@@ -9,7 +9,10 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  PermissionsAndroid,
 } from 'react-native';
+import Autocomplete from 'react-native-autocomplete-input';
+import Geolocation from '@react-native-community/geolocation';
 
 // Styles
 import HomeStyles from '../styles/HomeStyles';
@@ -37,13 +40,28 @@ function StartRide({navigation}) {
     if (destination === '') {
       setPossibleDestinations([]);
     } else {
-      let response = await GoogleApiUtility.SearchNearby(
-        'mels',
-        43.478061,
-        -80.537507,
+      let permRequest = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Location Accessing Permission',
+          message: 'CycleVision needs your location for navigation.',
+          buttonPositive: 'OK',
+        },
       );
 
-      setPossibleDestinations(response.results);
+      if (permRequest === PermissionsAndroid.RESULTS.GRANTED) {
+        Geolocation.getCurrentPosition(info => {
+          // console.log(info.coords.latitude, info.coords.longitude);
+          GoogleApiUtility.SearchNearby(
+            destination,
+            info.coords.latitude,
+            info.coords.longitude,
+          ).then(response => {
+            // console.log(response);
+            setPossibleDestinations(response.results);
+          });
+        });
+      }
     }
   };
 
@@ -62,10 +80,24 @@ function StartRide({navigation}) {
             <Text style={StartRideStyles.WithNavigationText}>
               Enter Destination
             </Text>
-            <TextInput
-              style={StartRideStyles.DestinationInput}
+            <Autocomplete
+              autoCapitalize="none"
+              autoCorrect={false}
+              inputContainerStyle={StartRideStyles.DestinationInput}
+              listContainerStyle={StartRideStyles.SuggestionList}
+              data={possibleDestinations}
+              defaultValue={destinationInput}
               onChangeText={text => UpdateDestination(text)}
-              value={destinationInput}
+              renderItem={({item}) => (
+                <TouchableOpacity style={StartRideStyles.SuggestionItem}>
+                  <Text style={StartRideStyles.SuggestionItemName}>
+                    {item.name}
+                  </Text>
+                  <Text style={StartRideStyles.SuggestionItemAddress}>
+                    {item.vicinity}
+                  </Text>
+                </TouchableOpacity>
+              )}
             />
           </View>
           <TouchableOpacity

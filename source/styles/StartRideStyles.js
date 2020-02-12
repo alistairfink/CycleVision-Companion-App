@@ -21,6 +21,7 @@ const StartRideStyles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	WithNavigationOuter: {
+		marginTop: '25%',
 		flex: 1,
 		width: '100%',
 		marginLeft: 0,
@@ -35,9 +36,27 @@ const StartRideStyles = StyleSheet.create({
 	},
 	DestinationInput: {
 		backgroundColor: Colours.Secondary,
-		borderRadius: 5,
 		marginLeft: 30,
 		marginRight: 30,
+	},
+	SuggestionList: {
+		marginLeft: 20,
+		marginRight: 20,
+		zIndex: 999,
+	},
+	SuggestionItem: {
+		padding: 8,
+		borderBottomWidth: 1,
+		borderBottomColor: 'lightgrey',
+		marginLeft: 7,
+		marginRight: 7,
+	},
+	SuggestionItemName: {
+		fontSize: 15,
+	},
+	SuggestionItemAddress: {
+		color: 'grey',
+		fontSize: 14,
 	},
 	WithoutNavigationButton: {
 		marginBottom: '30%',
