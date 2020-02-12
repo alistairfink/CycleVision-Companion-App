@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">CycleVisionCompanionApp</string>
-    <string name="mapbox_access_token">{MAP_BOX_TOKEN}</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiYWxpc3RhaXJmaW5rIiwiYSI6ImNrNjRlY3c5djBrMHozb29jc2htYTVxNDQifQ.ackV2oCTEth1p1hC1o14NA</string>
 </resources>

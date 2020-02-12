@@ -25,6 +25,10 @@ const t = StyleSheet.create({
   test2: {
     color: 'blue',
   },
+  navigation: {
+    backgroundColor: 'gainsboro',
+    flex: 1,
+  },
 });
 
 function Test() {
@@ -60,7 +64,22 @@ function Test() {
   return (
     <SafeAreaView>
       <StatusBar barStyle="light-content" backgroundColor={Colours.Primary} />
-      <View style={t.test}>{grant && <NavigationView />}</View>
+      <Text style={{color: 'black'}}>{grant.toString()}</Text>
+      <View style={t.test}>
+        {grant && (
+          <NavigationView
+            style={t.navigation}
+            destination={{
+              lat: 38.8951,
+              long: -77.0364,
+            }}
+            origin={{
+              lat: 38.883955,
+              long: -77.033189,
+            }}
+          />
+        )}
+      </View>
     </SafeAreaView>
   );
 }
