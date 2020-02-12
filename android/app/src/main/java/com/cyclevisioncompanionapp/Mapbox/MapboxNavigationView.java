@@ -17,6 +17,7 @@ import com.mapbox.android.core.location.LocationEngineCallback;
 import com.mapbox.android.core.location.LocationEngineProvider;
 import com.mapbox.android.core.location.LocationEngineRequest;
 import com.mapbox.android.core.location.LocationEngineResult;
+import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.api.directions.v5.models.DirectionsResponse;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Point;
@@ -304,6 +305,7 @@ public class MapboxNavigationView extends LinearLayout implements ProgressChange
                 .accessToken(Mapbox.getAccessToken())
                 .origin(origin, bearing, BEARING_TOLERANCE)
                 .destination(destination)
+                .profile(DirectionsCriteria.PROFILE_CYCLING)
                 .build()
                 .getRoute(new Callback<DirectionsResponse>() {
                     @Override

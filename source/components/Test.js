@@ -70,8 +70,8 @@ function Test() {
           <NavigationView
             style={t.navigation}
             destination={{
-              lat: 38.8951,
-              long: -77.0364,
+              lat: 43.484872,
+              long: -80.540045,
             }}
             origin={{
               lat: 38.883955,
