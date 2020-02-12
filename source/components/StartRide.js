@@ -21,11 +21,30 @@ import Colours from '../styles/Colours';
 import SettingsMenu from './SettingsMenu';
 import BackButton from './BackButton';
 
+// Utilities
+import GoogleApiUtility from '../utilities/GoogleApiUtility';
+
 function StartRide({navigation}) {
-  const [destinationInput, setDestinationInput] = useState("");
-  
+  const [destinationInput, setDestinationInput] = useState('');
+  const [possibleDestinations, setPossibleDestinations] = useState([]);
+
   let GetDeviceBattery = () => {
     return '100%';
+  };
+
+  const UpdateDestination = async destination => {
+    setDestinationInput(destination);
+    if (destination === '') {
+      setPossibleDestinations([]);
+    } else {
+      let response = await GoogleApiUtility.SearchNearby(
+        'mels',
+        43.478061,
+        -80.537507,
+      );
+
+      setPossibleDestinations(response.results);
+    }
   };
 
   return (
@@ -44,8 +63,8 @@ function StartRide({navigation}) {
               Enter Destination
             </Text>
             <TextInput
-            style={StartRideStyles.DestinationInput}
-              onChangeText={text => setDestinationInput(text)}
+              style={StartRideStyles.DestinationInput}
+              onChangeText={text => UpdateDestination(text)}
               value={destinationInput}
             />
           </View>
