@@ -51,13 +51,11 @@ function StartRide({navigation}) {
 
       if (permRequest === PermissionsAndroid.RESULTS.GRANTED) {
         Geolocation.getCurrentPosition(info => {
-          // console.log(info.coords.latitude, info.coords.longitude);
           GoogleApiUtility.SearchNearby(
             destination,
             info.coords.latitude,
             info.coords.longitude,
           ).then(response => {
-            // console.log(response);
             setPossibleDestinations(response.results);
           });
         });
@@ -89,7 +87,13 @@ function StartRide({navigation}) {
               defaultValue={destinationInput}
               onChangeText={text => UpdateDestination(text)}
               renderItem={({item}) => (
-                <TouchableOpacity style={StartRideStyles.SuggestionItem}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('NavigationFlow', {
+                      Destination: item,
+                    })
+                  }
+                  style={StartRideStyles.SuggestionItem}>
                   <Text style={StartRideStyles.SuggestionItemName}>
                     {item.name}
                   </Text>

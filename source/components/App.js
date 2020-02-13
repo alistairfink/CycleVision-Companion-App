@@ -9,6 +9,7 @@ import Home from './Home';
 import Settings from './Settings';
 import StartRide from './StartRide';
 import Test from './Test';
+import NavigationFlow from './NavigationFlow';
 
 const Navigator = createStackNavigator(
 	{
@@ -16,6 +17,7 @@ const Navigator = createStackNavigator(
 		Settings: {screen: Settings},
 		StartRide: {screen: StartRide},
 		Test: {screen: Test},
+		NavigationFlow: {screen: NavigationFlow},
 	},
 	{
 		headerMode: 'none',
