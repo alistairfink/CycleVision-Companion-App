@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
   Image,
   PermissionsAndroid,
+  NativeModules,
 } from 'react-native';
-import ScreenBrightness from 'react-native-screen-brightness';
 
 // Styles
 import SharedStyles from '../styles/SharedStyles';
@@ -27,34 +27,10 @@ function WithoutNavigationFlow({navigation}) {
   const [currBrightness, setCurrBrightness] = useState(null);
 
   useEffect(() => {
-    let inner = async () => {
-      let permRequest = await PermissionsAndroid.request(
-        'android.permission.WRITE_SETTINGS',
-        {
-          title: 'Write Settings Permissions',
-          message:
-            'CycleVision needs to set your brightness to conserve battery.',
-          buttonPositive: 'OK',
-        },
-      );
-
-      console.log(permRequest);
-      if (permRequest === PermissionsAndroid.RESULTS.GRANTED) {
-        ScreenBrightness.getBrightness().then(brightness => {
-          setOriginalBrightness(brightness / 255);
-          ScreenBrightness.setBrightness(0);
-        });
-      }
-    };
+    let inner = async () => {};
 
     inner();
   }, [setOriginalBrightness]);
-
-  useEffect(() => {
-    ScreenBrightness.getBrightness().then(brightness => {
-      setCurrBrightness(brightness);
-    });
-  });
 
   return (
     <SafeAreaView>
@@ -74,9 +50,9 @@ function WithoutNavigationFlow({navigation}) {
           <View style={WithoutNavigationFlowStyles.FooterRight}>
             <TouchableOpacity
               style={WithoutNavigationFlowStyles.EndRideOuter}
-              onPress={() => endRide()}>
+              onPress={() => navigation.navigate('RideFinished')}>
               <Text style={WithoutNavigationFlowStyles.EndRideText}>
-                End Ride{currBrightness}
+                End Ride
               </Text>
             </TouchableOpacity>
           </View>
