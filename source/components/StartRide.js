@@ -102,7 +102,7 @@ function StartRide({navigation}) {
             />
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('WithoutNavigationFlow')}
             style={StartRideStyles.WithoutNavigationButton}>
             <Text style={StartRideStyles.WithoutNavigationButtonText}>
               Continue Without Navigation

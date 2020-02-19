@@ -36,6 +36,8 @@ target 'CycleVisionCompanionApp' do
 
   pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
 
+  pod 'react-native-screen-brightness', :path => '../node_modules/react-native-screen-brightness'
+
   target 'CycleVisionCompanionAppTests' do
     inherit! :search_paths
     # Pods for testing

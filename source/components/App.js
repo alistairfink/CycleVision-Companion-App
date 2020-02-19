@@ -8,6 +8,7 @@ import {MenuProvider} from 'react-native-popup-menu';
 import Home from './Home';
 import Settings from './Settings';
 import StartRide from './StartRide';
+import WithoutNavigationFlow from './WithoutNavigationFlow';
 import NavigationFlow from './NavigationFlow';
 import RideFinished from './RideFinished';
 
@@ -17,11 +18,12 @@ const Navigator = createStackNavigator(
 		Settings: {screen: Settings},
 		StartRide: {screen: StartRide},
 		NavigationFlow: {screen: NavigationFlow},
+		WithoutNavigationFlow: {screen: WithoutNavigationFlow},
 		RideFinished: {screen: RideFinished},
 	},
 	{
 		headerMode: 'none',
-		initialRouteName: 'RideFinished',
+		initialRouteName: 'WithoutNavigationFlow',
 		defaultNavigationOptions: {
 			...TransitionPresets.SlideFromRightIOS,
 		},
