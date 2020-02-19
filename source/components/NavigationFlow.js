@@ -13,8 +13,11 @@ import {
 } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 
-// Components
+// Styles
 import Colours from '../styles/Colours';
+import NavigationFlowStyles from '../styles/NavigationFlowStyles';
+
+// Components
 import NavigationView from './NavigationView';
 
 function NavigationFlow({navigation}) {
@@ -54,25 +57,23 @@ function NavigationFlow({navigation}) {
 	return (
 		<SafeAreaView>
 			<StatusBar barStyle="light-content" backgroundColor={Colours.Primary} />
-			<Text>{(navObject == null).toString()}</Text>
-			<Text>{JSON.stringify(navObject)}</Text>
-			<View>
-				<View
-					style={{
-						backgroundColor: 'red',
-						height: '100%',
-						padding: 20,
-					}}>
-					{navObject != null && (
-						<NavigationView
-							style={{
-								backgroundColor: 'gainsboro',
-								flex: 1,
-							}}
-							destination={navObject.Destination}
-							origin={navObject.Origin}
-						/>
-					)}
+			<View style={NavigationFlowStyles.Outer}>
+				<View style={NavigationFlowStyles.Header}>
+					<Text>Header Goes Here</Text>
+				</View>
+				<View style={NavigationFlowStyles.Content}>
+					<View style={NavigationFlowStyles.NavigationOuter}>
+						{navObject != null && (
+							<NavigationView
+								style={NavigationFlowStyles.Navigation}
+								destination={navObject.Destination}
+								origin={navObject.Origin}
+							/>
+						)}
+					</View>
+				</View>
+				<View style={NavigationFlowStyles.Footer}>
+					<Text>Footer Goes Here</Text>
 				</View>
 			</View>
 		</SafeAreaView>
