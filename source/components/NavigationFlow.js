@@ -63,6 +63,11 @@ function NavigationFlow({navigation}) {
 	}, [setNavObject]);
 
 	let endRide = () => {
+		stopNavigation();
+		navigation.navigate('RideFinished');
+	};
+
+	let stopNavigation = () => {
 		_nav.current.stopNavigation();
 	};
 
@@ -72,7 +77,10 @@ function NavigationFlow({navigation}) {
 			<View style={NavigationFlowStyles.Outer}>
 				<View style={NavigationFlowStyles.Header}>
 					<View style={NavigationFlowStyles.BackOuter}>
-						<BackButton navigation={navigation} />
+						<BackButton
+							navigation={navigation}
+							override={() => stopNavigation()}
+						/>
 					</View>
 					<SettingsMenu navigation={navigation} />
 				</View>
