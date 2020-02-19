@@ -23,6 +23,7 @@ import Colours from '../styles/Colours';
 // Components
 import SettingsMenu from './SettingsMenu';
 import BackButton from './BackButton';
+import BatteryIndicator from './BatteryIndicator';
 
 // Utilities
 import GoogleApiUtility from '../utilities/GoogleApiUtility';
@@ -30,10 +31,6 @@ import GoogleApiUtility from '../utilities/GoogleApiUtility';
 function StartRide({navigation}) {
   const [destinationInput, setDestinationInput] = useState('');
   const [possibleDestinations, setPossibleDestinations] = useState([]);
-
-  let GetDeviceBattery = () => {
-    return '100%';
-  };
 
   const UpdateDestination = async destination => {
     setDestinationInput(destination);
@@ -111,15 +108,7 @@ function StartRide({navigation}) {
               Continue Without Navigation
             </Text>
           </TouchableOpacity>
-          <View style={SharedStyles.Styles.DeviceBatteryOuter}>
-            <Image
-              style={SharedStyles.Styles.DeviceBatteryIcon}
-              source={require('../resources/Battery.png')}
-            />
-            <Text style={SharedStyles.Styles.DeviceBatteryText}>
-              {GetDeviceBattery()}
-            </Text>
-          </View>
+          <BatteryIndicator />
         </View>
       </View>
     </SafeAreaView>

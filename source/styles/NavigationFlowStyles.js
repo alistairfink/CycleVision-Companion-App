@@ -7,17 +7,50 @@ const NavigationFlowStyles = StyleSheet.create({
     width: '100%',
     backgroundColor: Colours.Primary,
   },
+  Header: {
+    height: '12%',
+    flexDirection: 'row',
+  },
+  BackOuter: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  Content: {
+    height: '78%',
+    marginLeft: 10,
+    marginRight: 10,
+  },
   NavigationOuter: {
     height: '100%',
-    padding: 20,
   },
   Navigation: {
     backgroundColor: 'gainsboro',
     flex: 1,
   },
-  Header: {},
-  Content: {},
-  Footer: {},
+  Footer: {
+    height: '10%',
+    flexDirection: 'row',
+  },
+  FooterLeft: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  FooterRight: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  EndRideOuter: {
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    marginBottom: 10,
+  },
+  EndRideText: {
+    fontSize: 15,
+    color: Colours.Secondary,
+  },
 });
 
 export default NavigationFlowStyles;

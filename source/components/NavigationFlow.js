@@ -19,6 +19,9 @@ import NavigationFlowStyles from '../styles/NavigationFlowStyles';
 
 // Components
 import NavigationView from './NavigationView';
+import BatteryIndicator from './BatteryIndicator';
+import BackButton from './BackButton';
+import SettingsMenu from './SettingsMenu';
 
 function NavigationFlow({navigation}) {
 	const Destination = navigation.getParam('Destination');
@@ -59,7 +62,10 @@ function NavigationFlow({navigation}) {
 			<StatusBar barStyle="light-content" backgroundColor={Colours.Primary} />
 			<View style={NavigationFlowStyles.Outer}>
 				<View style={NavigationFlowStyles.Header}>
-					<Text>Header Goes Here</Text>
+          <View style={NavigationFlowStyles.BackOuter}>
+            <BackButton navigation={navigation} />
+          </View>
+          <SettingsMenu navigation={navigation} />
 				</View>
 				<View style={NavigationFlowStyles.Content}>
 					<View style={NavigationFlowStyles.NavigationOuter}>
@@ -73,7 +79,14 @@ function NavigationFlow({navigation}) {
 					</View>
 				</View>
 				<View style={NavigationFlowStyles.Footer}>
-					<Text>Footer Goes Here</Text>
+					<View style={NavigationFlowStyles.FooterLeft}>
+					<BatteryIndicator />
+					</View>
+					<View style={NavigationFlowStyles.FooterRight}>
+						<TouchableOpacity style={NavigationFlowStyles.EndRideOuter}>
+							<Text style={NavigationFlowStyles.EndRideText}>End Ride</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
 			</View>
 		</SafeAreaView>

@@ -14,15 +14,12 @@ import {
 import HomeStyles from '../styles/HomeStyles';
 import SharedStyles from '../styles/SharedStyles';
 import Colours from '../styles/Colours';
+import BatteryIndicator from './BatteryIndicator';
 
 // Components
 import SettingsMenu from './SettingsMenu';
 
 function Home({navigation}) {
-  let GetDeviceBattery = () => {
-    return '100%';
-  };
-
   return (
     <SafeAreaView>
       <StatusBar barStyle="light-content" backgroundColor={Colours.Primary} />
@@ -43,15 +40,7 @@ function Home({navigation}) {
               source={require('../resources/StartButton.png')}
             />
           </TouchableOpacity>
-          <View style={SharedStyles.Styles.DeviceBatteryOuter}>
-            <Image
-              style={SharedStyles.Styles.DeviceBatteryIcon}
-              source={require('../resources/Battery.png')}
-            />
-            <Text style={SharedStyles.Styles.DeviceBatteryText}>
-              {GetDeviceBattery()}
-            </Text>
-          </View>
+          <BatteryIndicator />
         </View>
       </View>
     </SafeAreaView>
