@@ -21,7 +21,7 @@ const Navigator = createStackNavigator(
 	},
 	{
 		headerMode: 'none',
-		initialRouteName: 'Home',
+		initialRouteName: 'RideFinished',
 		defaultNavigationOptions: {
 			...TransitionPresets.SlideFromRightIOS,
 		},
