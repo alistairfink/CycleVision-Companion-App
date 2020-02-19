@@ -13,9 +13,14 @@ import {
 } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 
+// Components
+import Colours from '../styles/Colours';
+import NavigationView from './NavigationView';
+
 function NavigationFlow({navigation}) {
 	const Destination = navigation.getParam('Destination');
-	const [origin, setOrigin] = useState(null);
+	const [navObject, setNavObject] = useState(null);
+
 	useEffect(() => {
 		let inner = async () => {
 			let permRequest = await PermissionsAndroid.request(
@@ -29,19 +34,46 @@ function NavigationFlow({navigation}) {
 
 			if (permRequest === PermissionsAndroid.RESULTS.GRANTED) {
 				Geolocation.getCurrentPosition(info => {
-					setOrigin(info.coords);
+					setNavObject({
+						Destination: {
+							lat: Destination.geometry.location.lat,
+							long: Destination.geometry.location.lng,
+						},
+						Origin: {
+							lat: info.coords.latitude,
+							long: info.coords.longitude,
+						},
+					});
 				});
 			}
 		};
 
 		inner();
-	}, [setOrigin]);
+	}, [setNavObject]);
 
 	return (
 		<SafeAreaView>
+			<StatusBar barStyle="light-content" backgroundColor={Colours.Primary} />
+			<Text>{(navObject == null).toString()}</Text>
+			<Text>{JSON.stringify(navObject)}</Text>
 			<View>
-				<Text>{JSON.stringify(Destination)}</Text>
-				<Text>{JSON.stringify(origin)}</Text>
+				<View
+					style={{
+						backgroundColor: 'red',
+						height: '100%',
+						padding: 20,
+					}}>
+					{navObject != null && (
+						<NavigationView
+							style={{
+								backgroundColor: 'gainsboro',
+								flex: 1,
+							}}
+							destination={navObject.Destination}
+							origin={navObject.Origin}
+						/>
+					)}
+				</View>
 			</View>
 		</SafeAreaView>
 	);
