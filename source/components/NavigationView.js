@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component,} from 'react';
 import PropTypes from 'prop-types';
-import {requireNativeComponent, StyleSheet, View} from 'react-native';
+import {requireNativeComponent, StyleSheet, View, UIManager, findNodeHandle} from 'react-native';
 
 type Props = {
   origin: {
@@ -20,9 +20,17 @@ const MapboxNavigationView = requireNativeComponent(
 );
 
 export default class NavigationView extends Component<any, Props, any> {
+  stopNavigation() {
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this.navRef),
+      1,
+      [], 
+    );
+  }
+
   render() {
     debugger;
-    return <MapboxNavigationView style={this.props.style} {...this.props} />;
+    return <MapboxNavigationView ref={(ref) => this.navRef = ref} style={this.props.style} {...this.props} />;
   }
 }
 

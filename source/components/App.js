@@ -8,7 +8,6 @@ import {MenuProvider} from 'react-native-popup-menu';
 import Home from './Home';
 import Settings from './Settings';
 import StartRide from './StartRide';
-import Test from './Test';
 import NavigationFlow from './NavigationFlow';
 
 const Navigator = createStackNavigator(
@@ -16,7 +15,6 @@ const Navigator = createStackNavigator(
 		Home: {screen: Home},
 		Settings: {screen: Settings},
 		StartRide: {screen: StartRide},
-		Test: {screen: Test},
 		NavigationFlow: {screen: NavigationFlow},
 	},
 	{

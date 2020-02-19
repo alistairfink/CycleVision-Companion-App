@@ -164,6 +164,9 @@ public class MapboxNavigationView extends LinearLayout implements ProgressChange
      * Activity lifecycle methods
      */
 
+    public void stopNavigation() {
+        navigation.stopNavigation();
+    }
 
     void checkFirstUpdate(Location location) {
         if (lastLocation == null) {
