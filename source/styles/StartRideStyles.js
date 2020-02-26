@@ -21,7 +21,7 @@ const StartRideStyles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	WithNavigationOuter: {
-		marginTop: '25%',
+		marginTop: '15%',
 		flex: 1,
 		width: '100%',
 		marginLeft: 0,
@@ -40,6 +40,7 @@ const StartRideStyles = StyleSheet.create({
 		marginRight: 30,
 	},
 	SuggestionList: {
+		minHeight: 200,
 		marginLeft: 20,
 		marginRight: 20,
 		zIndex: 999,
