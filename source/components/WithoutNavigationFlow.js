@@ -7,10 +7,13 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
+  Alert,
   Image,
   PermissionsAndroid,
   NativeModules,
+  BackHandler,
 } from 'react-native';
+import SystemSetting from 'react-native-system-setting';
 
 // Styles
 import SharedStyles from '../styles/SharedStyles';
@@ -24,13 +27,56 @@ import BackButton from './BackButton';
 
 function WithoutNavigationFlow({navigation}) {
   const [originalBrightness, setOriginalBrightness] = useState(1);
-  const [currBrightness, setCurrBrightness] = useState(null);
+  const dimBrightness = 0.0;
 
   useEffect(() => {
-    let inner = async () => {};
+    SystemSetting.getBrightness().then(brightness => {
+      setOriginalBrightness(brightness);
+    });
 
-    inner();
+    SystemSetting.setBrightnessForce(dimBrightness).then(success => {
+      !success &&
+        Alert.alert(
+          'Permission Deny',
+          'You have no permission changing settings',
+          [
+            {text: 'Ok', style: 'cancel'},
+            {
+              text: 'Open Setting',
+              onPress: () => SystemSetting.grantWriteSettingPermission(),
+            },
+          ],
+        );
+    });
+
+    BackHandler.addEventListener('hardwareBackPress', resetBrightness);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', resetBrightness);
+    };
   }, [setOriginalBrightness]);
+
+  const resetBrightness = () => {
+    SystemSetting.setBrightnessForce(originalBrightness).then(success => {
+      !success &&
+        Alert.alert(
+          'Permission Deny',
+          'You have no permission changing settings',
+          [
+            {text: 'Ok', style: 'cancel'},
+            {
+              text: 'Open Setting',
+              onPress: () => SystemSetting.grantWriteSettingPermission(),
+            },
+          ],
+        );
+    });
+  };
+
+  const navigateToRideFinished = () => {
+    resetBrightness();
+    navigation.navigate('RideFinished');
+  };
 
   return (
     <SafeAreaView>
@@ -38,7 +84,10 @@ function WithoutNavigationFlow({navigation}) {
       <View style={WithoutNavigationFlowStyles.Outer}>
         <View style={WithoutNavigationFlowStyles.Header}>
           <View style={WithoutNavigationFlowStyles.BackOuter}>
-            <BackButton navigation={navigation} />
+            <BackButton
+              navigation={navigation}
+              override={() => resetBrightness()}
+            />
           </View>
           <SettingsMenu navigation={navigation} />
         </View>
@@ -50,7 +99,7 @@ function WithoutNavigationFlow({navigation}) {
           <View style={WithoutNavigationFlowStyles.FooterRight}>
             <TouchableOpacity
               style={WithoutNavigationFlowStyles.EndRideOuter}
-              onPress={() => navigation.navigate('RideFinished')}>
+              onPress={() => navigateToRideFinished()}>
               <Text style={WithoutNavigationFlowStyles.EndRideText}>
                 End Ride
               </Text>
