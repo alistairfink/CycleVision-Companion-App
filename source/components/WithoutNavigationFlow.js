@@ -11,6 +11,7 @@ import {
   Image,
   PermissionsAndroid,
   NativeModules,
+  BackHandler,
 } from 'react-native';
 import SystemSetting from 'react-native-system-setting';
 
@@ -47,6 +48,12 @@ function WithoutNavigationFlow({navigation}) {
           ],
         );
     });
+
+    BackHandler.addEventListener('hardwareBackPress', resetBrightness);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', resetBrightness);
+    };
   }, [setOriginalBrightness]);
 
   const resetBrightness = () => {

@@ -13,6 +13,7 @@ import {
 	UIManager,
 	findNodeHandle,
 	requireNativeComponent,
+	BackHandler,
 } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 
@@ -60,6 +61,11 @@ function NavigationFlow({navigation}) {
 		};
 
 		inner();
+		BackHandler.addEventListener('hardwareBackPress', stopNavigation);
+
+		return () => {
+			BackHandler.removeEventListener('hardwareBackPress', stopNavigation);
+		};
 	}, [setNavObject]);
 
 	let endRide = () => {
