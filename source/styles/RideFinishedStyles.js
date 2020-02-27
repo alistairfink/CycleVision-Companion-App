@@ -19,7 +19,7 @@ const RideFinishedStyles = StyleSheet.create({
   Title: {
     color: Colours.Secondary,
     fontSize: 35,
-    marginLeft: 45,
+    marginLeft: 20,
     marginTop: -10,
   },
   ExitImg: {
@@ -34,7 +34,7 @@ const RideFinishedStyles = StyleSheet.create({
   MainContent: {
     flex: 1,
     width: '100%',
-    paddingLeft: 45,
+    paddingLeft: 20,
   },
   ContentRow: {
     flexDirection: 'row',
