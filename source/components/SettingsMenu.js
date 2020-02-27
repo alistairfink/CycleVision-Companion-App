@@ -11,7 +11,7 @@ import {
 // Styles
 import SharedStyles from '../styles/SharedStyles';
 
-function SettingsMenu({navigation: {navigate}}) {
+function SettingsMenu({navigation: {navigate}, override, goBackOverride}) {
   return (
     <View style={SharedStyles.Styles.SettingsButtonOuter}>
       <Menu>
@@ -22,7 +22,18 @@ function SettingsMenu({navigation: {navigate}}) {
           />
         </MenuTrigger>
         <MenuOptions customStyles={SharedStyles.SettingsMenu}>
-          <MenuOption onSelect={() => navigate('Settings')} text="Settings" />
+          <MenuOption
+            onSelect={() => {
+              if (override !== undefined) {
+                override();
+              }
+
+              navigate('Settings', {
+                override: goBackOverride,
+              });
+            }}
+            text="Settings"
+          />
         </MenuOptions>
       </Menu>
     </View>

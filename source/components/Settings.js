@@ -1,5 +1,5 @@
 // 3rd Party
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -8,6 +8,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
+  BackHandler,
 } from 'react-native';
 
 // Styles
@@ -18,12 +19,14 @@ import Colours from '../styles/Colours';
 import BackButton from './BackButton';
 
 function Settings({navigation}) {
+  const override = navigation.getParam('override');
+
   return (
     <SafeAreaView>
       <StatusBar barStyle="light-content" backgroundColor={Colours.Primary} />
       <View style={SettingsStyles.Outer}>
         <View style={SettingsStyles.TitleBar}>
-          <BackButton navigation={navigation} />
+          <BackButton navigation={navigation} override={override} />
           <View style={SettingsStyles.TitleOuter}>
             <Text style={SettingsStyles.Title}>Settings</Text>
           </View>

@@ -34,6 +34,14 @@ function WithoutNavigationFlow({navigation}) {
       setOriginalBrightness(brightness);
     });
 
+    setBrightness();
+    BackHandler.addEventListener('hardwareBackPress', resetBrightness);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', resetBrightness);
+    };
+  }, [setOriginalBrightness, setBrightness, resetBrightness]);
+
+  const setBrightness = () => {
     SystemSetting.setBrightnessForce(dimBrightness).then(success => {
       !success &&
         Alert.alert(
@@ -48,13 +56,7 @@ function WithoutNavigationFlow({navigation}) {
           ],
         );
     });
-
-    BackHandler.addEventListener('hardwareBackPress', resetBrightness);
-
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', resetBrightness);
-    };
-  }, [setOriginalBrightness]);
+  };
 
   const resetBrightness = () => {
     SystemSetting.setBrightnessForce(originalBrightness).then(success => {
@@ -89,7 +91,11 @@ function WithoutNavigationFlow({navigation}) {
               override={() => resetBrightness()}
             />
           </View>
-          <SettingsMenu navigation={navigation} />
+          <SettingsMenu
+            navigation={navigation}
+            override={() => resetBrightness()}
+            goBackOverride={() => setBrightness()}
+          />
         </View>
         <View style={WithoutNavigationFlowStyles.EmptyBody} />
         <View style={WithoutNavigationFlowStyles.Footer}>
