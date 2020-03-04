@@ -14,6 +14,8 @@ import {
   BackHandler,
 } from 'react-native';
 import SystemSetting from 'react-native-system-setting';
+import Video from 'react-native-video';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // Styles
 import SharedStyles from '../styles/SharedStyles';
@@ -25,9 +27,17 @@ import SettingsMenu from './SettingsMenu';
 import BatteryIndicator from './BatteryIndicator';
 import BackButton from './BackButton';
 
+// Utilities
+import {
+  DEVICE_URL_KEY,
+  VIDEO_API,
+  DEFAULT_DEVICE_IP,
+} from '../utilities/Constants';
+
 function WithoutNavigationFlow({navigation}) {
   const [originalBrightness, setOriginalBrightness] = useState(1);
-  const dimBrightness = 0.0;
+  const dimBrightness = 1.0;
+  const [videoURL, setVideoURL] = useState(null);
 
   useEffect(() => {
     SystemSetting.getBrightness().then(brightness => {
@@ -35,11 +45,21 @@ function WithoutNavigationFlow({navigation}) {
     });
 
     setBrightness();
+    let getURL = async () => {
+      const baseIP = await AsyncStorage.getItem(DEVICE_URL_KEY);
+      if (baseIP === null) {
+        baseIP = DEFAULT_DEVICE_IP;
+      }
+
+      setVideoURL(baseIP + VIDEO_API);
+    };
+
+    getURL();
     BackHandler.addEventListener('hardwareBackPress', resetBrightness);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', resetBrightness);
     };
-  }, [setOriginalBrightness, setBrightness, resetBrightness]);
+  }, [setOriginalBrightness, setBrightness, resetBrightness, setVideoURL]);
 
   const setBrightness = () => {
     SystemSetting.setBrightnessForce(dimBrightness).then(success => {
@@ -97,7 +117,11 @@ function WithoutNavigationFlow({navigation}) {
             goBackOverride={() => setBrightness()}
           />
         </View>
-        <View style={WithoutNavigationFlowStyles.EmptyBody} />
+        <View style={WithoutNavigationFlowStyles.EmptyBody}>
+          {videoURL !== null && (
+            <Text>Test</Text>
+          )}
+        </View>
         <View style={WithoutNavigationFlowStyles.Footer}>
           <View style={WithoutNavigationFlowStyles.FooterLeft}>
             <BatteryIndicator />

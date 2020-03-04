@@ -37,6 +37,8 @@ target 'CycleVisionCompanionApp' do
   pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
 
 
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
+
   target 'CycleVisionCompanionAppTests' do
     inherit! :search_paths
     # Pods for testing
