@@ -30,10 +30,10 @@ function Home({navigation}) {
         const value = await AsyncStorage.getItem(DEVICE_URL_KEY);
         console.log(value);
         if (value === null) {
-          await AsyncStorage.setItem(DEVICE_URL_KEY, '10.49.165.133');
+          await AsyncStorage.setItem(DEVICE_URL_KEY, '10.49.165.133:41691');
         }
       } catch (e) {
-        await AsyncStorage.setItem(DEVICE_URL_KEY, '10.49.165.133');
+        await AsyncStorage.setItem(DEVICE_URL_KEY, '10.49.165.133:41691');
       }
     };
 
