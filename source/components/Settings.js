@@ -92,6 +92,20 @@ function Settings({navigation}) {
               </Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={SettingsStyles.SettingsItem}
+            onPress={() => navigation.navigate('DebugSettings')}>
+            <Image
+              style={SettingsStyles.SettingsItemImage}
+              source={require('../resources/Info.png')}
+            />
+            <View style={SettingsStyles.SettingsItemTitleOuter}>
+              <Text style={SettingsStyles.SettingsItemTitle}>Debug</Text>
+              <Text style={SettingsStyles.SettingsItemSubTitle}>
+                Remove this.
+              </Text>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
       </View>
     </SafeAreaView>

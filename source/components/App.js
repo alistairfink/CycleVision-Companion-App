@@ -11,6 +11,7 @@ import StartRide from './StartRide';
 import WithoutNavigationFlow from './WithoutNavigationFlow';
 import NavigationFlow from './NavigationFlow';
 import RideFinished from './RideFinished';
+import DebugSettings from './DebugSettings';
 
 const Navigator = createStackNavigator(
 	{
@@ -20,6 +21,7 @@ const Navigator = createStackNavigator(
 		NavigationFlow: {screen: NavigationFlow},
 		WithoutNavigationFlow: {screen: WithoutNavigationFlow},
 		RideFinished: {screen: RideFinished},
+		DebugSettings: {screen: DebugSettings},
 	},
 	{
 		headerMode: 'none',

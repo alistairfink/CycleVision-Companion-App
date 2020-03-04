@@ -1,5 +1,5 @@
 // 3rd Party
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // Styles
 import HomeStyles from '../styles/HomeStyles';
@@ -19,7 +20,25 @@ import BatteryIndicator from './BatteryIndicator';
 // Components
 import SettingsMenu from './SettingsMenu';
 
+// Utilities
+import {DEVICE_URL_KEY} from '../utilities/Constants';
+
 function Home({navigation}) {
+  useEffect(() => {
+    let setLocalSettings = async () => {
+      try {
+        const value = await AsyncStorage.getItem(DEVICE_URL_KEY);
+        console.log(value);
+        if (value === null) {
+          await AsyncStorage.setItem(DEVICE_URL_KEY, '10.49.165.133');
+        }
+      } catch (e) {
+        await AsyncStorage.setItem(DEVICE_URL_KEY, '10.49.165.133');
+      }
+    };
+
+    setLocalSettings();
+  }, []);
   return (
     <SafeAreaView>
       <StatusBar barStyle="light-content" backgroundColor={Colours.Primary} />

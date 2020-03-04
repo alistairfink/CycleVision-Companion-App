@@ -1,0 +1,1 @@
+export const DEVICE_URL_KEY = 'DEVICE_URL_KEY';
