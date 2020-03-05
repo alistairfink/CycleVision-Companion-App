@@ -32,6 +32,9 @@ const SharedStyles = {
 			marginBottom: 10,
 			color: Colours.Secondary,
 		},
+		VideoOuter: {
+			backgroundColor: 'transparent',
+		},
 	}),
 	SettingsMenu: {
 		optionsWrapper: StyleSheet.create({

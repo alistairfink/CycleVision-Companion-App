@@ -14,9 +14,7 @@ import {
   BackHandler,
 } from 'react-native';
 import SystemSetting from 'react-native-system-setting';
-import Video from 'react-native-video';
 import AsyncStorage from '@react-native-community/async-storage';
-import {WebView} from 'react-native-webview';
 
 // Styles
 import SharedStyles from '../styles/SharedStyles';
@@ -27,18 +25,21 @@ import WithoutNavigationFlowStyles from '../styles/WithoutNavigationFlowStyles';
 import SettingsMenu from './SettingsMenu';
 import BatteryIndicator from './BatteryIndicator';
 import BackButton from './BackButton';
+import VideoView from './VideoView';
 
 // Utilities
 import {
   DEVICE_URL_KEY,
   VIDEO_API,
   DEFAULT_DEVICE_IP,
+  EVENT_API,
 } from '../utilities/Constants';
 
 function WithoutNavigationFlow({navigation}) {
   const [originalBrightness, setOriginalBrightness] = useState(1);
   const dimBrightness = 1.0;
   const [videoURL, setVideoURL] = useState(null);
+  const [eventSource, setEventSource] = useState(null);
 
   useEffect(() => {
     SystemSetting.getBrightness().then(brightness => {
@@ -53,14 +54,30 @@ function WithoutNavigationFlow({navigation}) {
       }
 
       setVideoURL(baseIP + VIDEO_API);
+      // setEventSource(new EventSource(baseIP + EVENT_API));
+      // eventSource.addEventListener('message', data => {
+      //   console.log(data.type); // message
+      //   console.log(data.data);
+      // });
     };
 
     getURL();
     BackHandler.addEventListener('hardwareBackPress', resetBrightness);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', resetBrightness);
+      if (eventSource !== null) {
+        // eventSource.removeAllListeners();
+        // eventSource.close();
+      }
     };
-  }, [setOriginalBrightness, setBrightness, resetBrightness, setVideoURL]);
+  }, [
+    setOriginalBrightness,
+    setBrightness,
+    resetBrightness,
+    setVideoURL,
+    setEventSource,
+    eventSource,
+  ]);
 
   const setBrightness = () => {
     SystemSetting.setBrightnessForce(dimBrightness).then(success => {
@@ -119,15 +136,7 @@ function WithoutNavigationFlow({navigation}) {
           />
         </View>
         <View style={WithoutNavigationFlowStyles.EmptyBody}>
-          {videoURL !== null && (
-            <WebView
-              originWhitelist={['*']}
-              source={{
-                html:
-                  '<img style="width: 100%; margin: 0%; padding: 0%;" src="http://10.49.165.133:41691/api/video" />',
-              }}
-            />
-          )}
+          {videoURL !== null && <VideoView videoURL={videoURL} />}
         </View>
         <View style={WithoutNavigationFlowStyles.Footer}>
           <View style={WithoutNavigationFlowStyles.FooterLeft}>
