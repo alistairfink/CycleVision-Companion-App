@@ -17,6 +17,9 @@ const WithoutNavigationFlowStyles = StyleSheet.create({
 	},
 	EmptyBody: {
 		flex: 1,
+		justifyContent: 'center',
+		marginLeft: 10,
+		marginRight: 10,
 	},
 	Footer: {
 		height: '10%',
