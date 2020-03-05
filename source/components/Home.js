@@ -21,19 +21,18 @@ import BatteryIndicator from './BatteryIndicator';
 import SettingsMenu from './SettingsMenu';
 
 // Utilities
-import {DEVICE_URL_KEY} from '../utilities/Constants';
+import {DEVICE_URL_KEY, DEFAULT_DEVICE_IP} from '../utilities/Constants';
 
 function Home({navigation}) {
   useEffect(() => {
     let setLocalSettings = async () => {
       try {
         const value = await AsyncStorage.getItem(DEVICE_URL_KEY);
-        console.log(value);
         if (value === null) {
-          await AsyncStorage.setItem(DEVICE_URL_KEY, '10.49.165.133:41691');
+          await AsyncStorage.setItem(DEVICE_URL_KEY, DEFAULT_DEVICE_IP);
         }
       } catch (e) {
-        await AsyncStorage.setItem(DEVICE_URL_KEY, '10.49.165.133:41691');
+        await AsyncStorage.setItem(DEVICE_URL_KEY, DEFAULT_DEVICE_IP);
       }
     };
 
