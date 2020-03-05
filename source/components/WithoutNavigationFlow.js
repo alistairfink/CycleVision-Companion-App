@@ -16,6 +16,7 @@ import {
 import SystemSetting from 'react-native-system-setting';
 import Video from 'react-native-video';
 import AsyncStorage from '@react-native-community/async-storage';
+import {WebView} from 'react-native-webview';
 
 // Styles
 import SharedStyles from '../styles/SharedStyles';
@@ -119,7 +120,13 @@ function WithoutNavigationFlow({navigation}) {
         </View>
         <View style={WithoutNavigationFlowStyles.EmptyBody}>
           {videoURL !== null && (
-            <Text>Test</Text>
+            <WebView
+              originWhitelist={['*']}
+              source={{
+                html:
+                  '<img style="width: 100%; margin: 0%; padding: 0%;" src="http://10.49.165.133:41691/api/video" />',
+              }}
+            />
           )}
         </View>
         <View style={WithoutNavigationFlowStyles.Footer}>
