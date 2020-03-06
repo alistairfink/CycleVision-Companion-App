@@ -35,6 +35,14 @@ const SharedStyles = {
 		VideoOuter: {
 			backgroundColor: 'transparent',
 		},
+		CameraButtonOuter: {
+			justifyContent: 'center',
+			marginRight: 30,
+		},
+		CameraButton: {
+			height: 35,
+			width: 35,
+		},
 	}),
 	SettingsMenu: {
 		optionsWrapper: StyleSheet.create({

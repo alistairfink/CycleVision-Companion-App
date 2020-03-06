@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import RNEventSource from 'react-native-event-source';
 
 // Styles
+import SharedStyles from '../styles/SharedStyles';
 import NavigationView from './NavigationView';
 import Colours from '../styles/Colours';
 import NavigationFlowStyles from '../styles/NavigationFlowStyles';
@@ -128,6 +129,16 @@ function NavigationFlow({navigation}) {
 							override={() => stopNavigation()}
 						/>
 					</View>
+					<TouchableOpacity
+						style={SharedStyles.Styles.CameraButtonOuter}
+						onPress={() => {
+							showVideo ? handleEvent('False') : handleEvent('True');
+						}}>
+						<Image
+							style={SharedStyles.Styles.CameraButton}
+							source={require('../resources/Camera.png')}
+						/>
+					</TouchableOpacity>
 					<SettingsMenu navigation={navigation} />
 				</View>
 				<View style={NavigationFlowStyles.Content}>

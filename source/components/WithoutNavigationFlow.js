@@ -139,6 +139,16 @@ function WithoutNavigationFlow({navigation}) {
               override={() => resetBrightness()}
             />
           </View>
+          <TouchableOpacity
+            style={SharedStyles.Styles.CameraButtonOuter}
+            onPress={() => {
+              showVideo ? handleEvent('False') : handleEvent('True');
+            }}>
+            <Image
+              style={SharedStyles.Styles.CameraButton}
+              source={require('../resources/Camera.png')}
+            />
+          </TouchableOpacity>
           <SettingsMenu
             navigation={navigation}
             override={() => resetBrightness()}
