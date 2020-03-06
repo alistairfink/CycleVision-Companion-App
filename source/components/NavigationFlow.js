@@ -16,6 +16,8 @@ import {
 	BackHandler,
 } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
+import AsyncStorage from '@react-native-community/async-storage';
+import RNEventSource from 'react-native-event-source';
 
 // Styles
 import NavigationView from './NavigationView';
@@ -26,10 +28,21 @@ import NavigationFlowStyles from '../styles/NavigationFlowStyles';
 import BatteryIndicator from './BatteryIndicator';
 import BackButton from './BackButton';
 import SettingsMenu from './SettingsMenu';
+import VideoView from './VideoView';
+
+// Utilities
+import {
+	DEVICE_URL_KEY,
+	VIDEO_API,
+	DEFAULT_DEVICE_IP,
+	EVENT_API,
+} from '../utilities/Constants';
 
 function NavigationFlow({navigation}) {
 	const Destination = navigation.getParam('Destination');
 	const [navObject, setNavObject] = useState(null);
+	const [videoURL, setVideoURL] = useState(null);
+	const [showVideo, setShowVideo] = useState(false);
 
 	const _nav = useRef(null);
 
@@ -60,13 +73,32 @@ function NavigationFlow({navigation}) {
 			}
 		};
 
+		let es = null;
+		let getURL = async () => {
+			const baseIP = await AsyncStorage.getItem(DEVICE_URL_KEY);
+			if (baseIP === null) {
+				baseIP = DEFAULT_DEVICE_IP;
+			}
+
+			setVideoURL(baseIP + VIDEO_API);
+			es = new RNEventSource(baseIP + EVENT_API);
+			es.addEventListener('message', data => {
+				handleEvent(data.data);
+			});
+		};
+
+		getURL();
 		inner();
 		BackHandler.addEventListener('hardwareBackPress', stopNavigation);
 
 		return () => {
 			BackHandler.removeEventListener('hardwareBackPress', stopNavigation);
+			if (es !== null) {
+				es.removeAllListeners();
+				es.close();
+			}
 		};
-	}, [setNavObject]);
+	}, [setNavObject, setVideoURL]);
 
 	let endRide = () => {
 		stopNavigation();
@@ -75,6 +107,14 @@ function NavigationFlow({navigation}) {
 
 	let stopNavigation = () => {
 		_nav.current.stopNavigation();
+	};
+
+	const handleEvent = data => {
+		if (data === 'True') {
+			setShowVideo(true);
+		} else if (data === 'False') {
+			setShowVideo(false);
+		}
 	};
 
 	return (
@@ -99,6 +139,9 @@ function NavigationFlow({navigation}) {
 								destination={navObject.Destination}
 								origin={navObject.Origin}
 							/>
+						)}
+						{showVideo && videoURL !== null && (
+							<VideoView videoURL={videoURL} />
 						)}
 					</View>
 				</View>

@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import SystemSetting from 'react-native-system-setting';
 import AsyncStorage from '@react-native-community/async-storage';
+import RNEventSource from 'react-native-event-source';
 
 // Styles
 import SharedStyles from '../styles/SharedStyles';
@@ -37,9 +38,9 @@ import {
 
 function WithoutNavigationFlow({navigation}) {
   const [originalBrightness, setOriginalBrightness] = useState(1);
-  const dimBrightness = 1.0;
+  const dimBrightness = 0.0;
   const [videoURL, setVideoURL] = useState(null);
-  const [eventSource, setEventSource] = useState(null);
+  const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
     SystemSetting.getBrightness().then(brightness => {
@@ -47,6 +48,7 @@ function WithoutNavigationFlow({navigation}) {
     });
 
     setBrightness();
+    let es = null;
     let getURL = async () => {
       const baseIP = await AsyncStorage.getItem(DEVICE_URL_KEY);
       if (baseIP === null) {
@@ -54,20 +56,19 @@ function WithoutNavigationFlow({navigation}) {
       }
 
       setVideoURL(baseIP + VIDEO_API);
-      // setEventSource(new EventSource(baseIP + EVENT_API));
-      // eventSource.addEventListener('message', data => {
-      //   console.log(data.type); // message
-      //   console.log(data.data);
-      // });
+      es = new RNEventSource(baseIP + EVENT_API);
+      es.addEventListener('message', data => {
+        handleEvent(data.data);
+      });
     };
 
     getURL();
     BackHandler.addEventListener('hardwareBackPress', resetBrightness);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', resetBrightness);
-      if (eventSource !== null) {
-        // eventSource.removeAllListeners();
-        // eventSource.close();
+      if (es !== null) {
+        es.removeAllListeners();
+        es.close();
       }
     };
   }, [
@@ -75,8 +76,7 @@ function WithoutNavigationFlow({navigation}) {
     setBrightness,
     resetBrightness,
     setVideoURL,
-    setEventSource,
-    eventSource,
+    handleEvent,
   ]);
 
   const setBrightness = () => {
@@ -118,6 +118,16 @@ function WithoutNavigationFlow({navigation}) {
     navigation.navigate('RideFinished');
   };
 
+  const handleEvent = data => {
+    if (data === 'True') {
+      resetBrightness();
+      setShowVideo(true);
+    } else if (data === 'False') {
+      setBrightness();
+      setShowVideo(false);
+    }
+  };
+
   return (
     <SafeAreaView>
       <StatusBar barStyle="light-content" backgroundColor={Colours.Primary} />
@@ -136,7 +146,7 @@ function WithoutNavigationFlow({navigation}) {
           />
         </View>
         <View style={WithoutNavigationFlowStyles.EmptyBody}>
-          {videoURL !== null && <VideoView videoURL={videoURL} />}
+          {showVideo && videoURL !== null && <VideoView videoURL={videoURL} />}
         </View>
         <View style={WithoutNavigationFlowStyles.Footer}>
           <View style={WithoutNavigationFlowStyles.FooterLeft}>
