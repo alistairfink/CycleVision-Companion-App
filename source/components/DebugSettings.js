@@ -60,6 +60,7 @@ function DebugSettings({navigation}) {
         <Dialog.Container visible={showDeviceIPWindow}>
           <Dialog.Title>Change Device IP</Dialog.Title>
           <Dialog.Input
+            style={SettingsStyles.InputDialogBox}
             onChangeText={text => setDeviceIP(text)}
             value={deviceIP}
           />

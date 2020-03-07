@@ -44,7 +44,9 @@ function Settings({navigation}) {
               </Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={SettingsStyles.SettingsItem}>
+          <TouchableOpacity
+            style={SettingsStyles.SettingsItem}
+            onPress={() => navigation.navigate('DeviceSettings')}>
             <Image
               style={SettingsStyles.SettingsItemImage}
               source={require('../resources/Device.png')}
