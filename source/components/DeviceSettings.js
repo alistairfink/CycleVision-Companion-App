@@ -50,7 +50,7 @@ function DeviceSettings({navigation}) {
             }}>
             <Image
               style={SettingsStyles.SettingsItemImage}
-              source={require('../resources/Info.png')}
+              source={require('../resources/Wifi.png')}
             />
             <View style={SettingsStyles.SettingsItemTitleOuter}>
               <Text style={SettingsStyles.SettingsItemTitle}>

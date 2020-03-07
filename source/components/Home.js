@@ -114,7 +114,7 @@ function Home({navigation}) {
   };
 
   const cantConnect = () => {
-    Alert.alert('Connection Error', 'Unable to connect to device.');
+    Alert.alert('Connection Error', 'Unable to connect to device. Ensure that the Device SSID and Password are set in device settings.');
   };
 
   return (
