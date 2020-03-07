@@ -6,11 +6,13 @@ import {
   View,
   Text,
   StatusBar,
+  PermissionsAndroid,
   TouchableOpacity,
   Image,
   Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import wifi from 'react-native-android-wifi';
 
 // Styles
 import HomeStyles from '../styles/HomeStyles';
@@ -31,8 +33,36 @@ import FetchWithTimeout from '../utilities/FetchWithTimeout';
 
 function Home({navigation}) {
   const [healthCheckURL, setHealthCheckURL] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
+    let wifiSetup = async () => {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: 'Wifi Networks',
+            message: 'CycleVision requires access to connect to the device over wifi.',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          wifi.setEnabled(true);
+          wifi.findAndConnect('CycleVision', '', found => {
+            if (found) {
+              setIsConnected(true);
+              wifi.forceWifiUsage(true);
+            } else {
+              cantConnect();
+            }
+          });
+        } else {
+          cantConnect();
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    };
+
     let setLocalSettings = async () => {
       try {
         const value = await AsyncStorage.getItem(DEVICE_URL_KEY);
@@ -48,12 +78,14 @@ function Home({navigation}) {
     };
 
     setLocalSettings();
-  }, [setHealthCheckURL]);
+    wifiSetup();
+  }, [setHealthCheckURL, cantConnect, setIsConnected]);
 
   const start = () => {
-    if (healthCheckURL !== null) {
+    if (healthCheckURL !== null && isConnected) {
       FetchWithTimeout(healthCheckURL, {}, 5000)
         .then(result => {
+          wifi.forceWifiUsage(false);
           navigation.navigate('StartRide');
         })
         .catch(e => {

@@ -19,6 +19,7 @@ import {
 // Styles
 import Colours from '../styles/Colours';
 import RideFinishedStyles from '../styles/RideFinishedStyles';
+import wifi from 'react-native-android-wifi';
 
 // Components
 import BatteryIndicator from './BatteryIndicator';
@@ -39,11 +40,13 @@ function RideFinished({navigation}) {
 	}, [backButtonHandler]);
 
 	let backButtonHandler = () => {
+		wifi.forceWifiUsage(true);
 		navigateBack();
 		return true;
 	};
 
 	let navigateBack = () => {
+		wifi.forceWifiUsage(true);
 		navigation.navigate('Home');
 	};
 
