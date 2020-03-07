@@ -6,6 +6,7 @@ import android.content.Context;
 import com.cyclevisioncompanionapp.Mapbox.MapboxNavigationViewPackage;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.devstepbcn.wifi.AndroidWifiPackage;
 
 import com.reactnativecommunity.geolocation.GeolocationPackage;
 import com.facebook.react.ReactNativeHost;

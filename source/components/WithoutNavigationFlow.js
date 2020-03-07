@@ -16,6 +16,7 @@ import {
 import SystemSetting from 'react-native-system-setting';
 import AsyncStorage from '@react-native-community/async-storage';
 import RNEventSource from 'react-native-event-source';
+import wifi from 'react-native-android-wifi';
 
 // Styles
 import SharedStyles from '../styles/SharedStyles';
@@ -121,9 +122,11 @@ function WithoutNavigationFlow({navigation}) {
   const handleEvent = data => {
     if (data === 'True') {
       resetBrightness();
+      wifi.forceWifiUsage(true);
       setShowVideo(true);
     } else if (data === 'False') {
       setBrightness();
+      wifi.forceWifiUsage(false);
       setShowVideo(false);
     }
   };

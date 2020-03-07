@@ -40,6 +40,10 @@ const SettingsStyles = StyleSheet.create({
     color: Colours.Secondary,
     fontSize: 15,
   },
+  InputDialogBox: {
+    borderWidth: 1,
+    borderColor: 'black',
+  },
 });
 
 export default SettingsStyles;
