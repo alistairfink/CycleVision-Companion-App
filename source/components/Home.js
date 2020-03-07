@@ -28,6 +28,10 @@ import {
   DEVICE_URL_KEY,
   DEFAULT_DEVICE_IP,
   HEALTH_CHECK_API,
+  DEVICE_SSID_KEY,
+  DEVICE_PASS_KEY,
+  DEFAULT_NETWORK_SSID,
+  DEFAULT_NETWORK_PASS,
 } from '../utilities/Constants';
 import FetchWithTimeout from '../utilities/FetchWithTimeout';
 
@@ -38,16 +42,29 @@ function Home({navigation}) {
   useEffect(() => {
     let wifiSetup = async () => {
       try {
+        let wifiSSID = await AsyncStorage.getItem(DEVICE_SSID_KEY);
+        if (wifiSSID === null) {
+          wifiSSID = DEFAULT_NETWORK_SSID;
+          await AsyncStorage.setItem(DEVICE_SSID_KEY, DEFAULT_NETWORK_SSID);
+        }
+
+        let wifiPass = await AsyncStorage.getItem(DEVICE_PASS_KEY);
+        if (wifiPass === null) {
+          wifiPass = DEFAULT_NETWORK_PASS;
+          await AsyncStorage.setItem(DEVICE_PASS_KEY, DEFAULT_NETWORK_PASS);
+        }
+
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
             title: 'Wifi Networks',
-            message: 'CycleVision requires access to connect to the device over wifi.',
+            message:
+              'CycleVision requires access to connect to the device over wifi.',
           },
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           wifi.setEnabled(true);
-          wifi.findAndConnect('CycleVision', '', found => {
+          wifi.findAndConnect(wifiSSID, wifiPass, found => {
             if (found) {
               setIsConnected(true);
               wifi.forceWifiUsage(true);
@@ -65,7 +82,7 @@ function Home({navigation}) {
 
     let setLocalSettings = async () => {
       try {
-        const value = await AsyncStorage.getItem(DEVICE_URL_KEY);
+        let value = await AsyncStorage.getItem(DEVICE_URL_KEY);
         if (value === null) {
           value = DEFAULT_DEVICE_IP;
           await AsyncStorage.setItem(DEVICE_URL_KEY, DEFAULT_DEVICE_IP);
