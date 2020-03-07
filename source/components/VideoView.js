@@ -15,7 +15,8 @@ function VideoView({videoURL}) {
         html: `
           <div style="display: flex; height: 100%; align-items: center;">
             <img style="width: 100%;" src="${videoURL}" />
-          </div>`,
+          </div>
+        `,
       }}
     />
   );

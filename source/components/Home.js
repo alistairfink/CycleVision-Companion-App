@@ -66,8 +66,8 @@ function Home({navigation}) {
           wifi.setEnabled(true);
           wifi.findAndConnect(wifiSSID, wifiPass, found => {
             if (found) {
-              setIsConnected(true);
               wifi.forceWifiUsage(true);
+              setIsConnected(true);
             } else {
               cantConnect();
             }
