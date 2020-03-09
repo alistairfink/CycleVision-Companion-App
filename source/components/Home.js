@@ -100,6 +100,7 @@ function Home({navigation}) {
 
   const start = () => {
     if (healthCheckURL !== null && isConnected) {
+      wifi.forceWifiUsage(true);
       FetchWithTimeout(healthCheckURL, {}, 5000)
         .then(result => {
           wifi.forceWifiUsage(false);
@@ -114,7 +115,10 @@ function Home({navigation}) {
   };
 
   const cantConnect = () => {
-    Alert.alert('Connection Error', 'Unable to connect to device. Ensure that the Device SSID and Password are set in device settings.');
+    Alert.alert(
+      'Connection Error',
+      'Unable to connect to device. Ensure that the Device SSID and Password are set in device settings.',
+    );
   };
 
   return (

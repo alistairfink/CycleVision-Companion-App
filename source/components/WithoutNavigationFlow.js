@@ -57,10 +57,12 @@ function WithoutNavigationFlow({navigation}) {
       }
 
       setVideoURL(baseIP + VIDEO_API);
+      wifi.forceWifiUsage(true);
       es = new RNEventSource(baseIP + EVENT_API);
       es.addEventListener('message', data => {
         handleEvent(data.data);
       });
+      wifi.forceWifiUsage(false);
     };
 
     getURL();

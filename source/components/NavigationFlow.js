@@ -83,6 +83,7 @@ function NavigationFlow({navigation}) {
 			}
 
 			setVideoURL(baseIP + VIDEO_API);
+			await inner();
 			es = new RNEventSource(baseIP + EVENT_API);
 			es.addEventListener('message', data => {
 				handleEvent(data.data);
@@ -90,7 +91,6 @@ function NavigationFlow({navigation}) {
 		};
 
 		getURL();
-		inner();
 		BackHandler.addEventListener('hardwareBackPress', stopNavigation);
 
 		return () => {
