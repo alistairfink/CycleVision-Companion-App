@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
 import Geolocation from '@react-native-community/geolocation';
+import wifi from 'react-native-android-wifi';
 
 // Styles
 import HomeStyles from '../styles/HomeStyles';
@@ -37,6 +38,7 @@ function StartRide({navigation}) {
     if (destination === '') {
       setPossibleDestinations([]);
     } else {
+      wifi.forceWifiUsage(false);
       let permRequest = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         {

@@ -62,7 +62,6 @@ function WithoutNavigationFlow({navigation}) {
       es.addEventListener('message', data => {
         handleEvent(data.data);
       });
-      wifi.forceWifiUsage(false);
     };
 
     getURL();

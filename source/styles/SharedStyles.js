@@ -16,6 +16,11 @@ const SharedStyles = {
 			marginLeft: 15,
 			marginRight: 20,
 		},
+		BackButtonImageOuter: {
+			width: 50,
+			height: 60,
+			justifyContent: 'center',
+		},
 		BackButtonImage: {
 			height: 35,
 			width: 35,

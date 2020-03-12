@@ -9,6 +9,7 @@ function BackButton({navigation: {goBack}, override}) {
   return (
     <View style={SharedStyles.Styles.BackButtonOuter}>
       <TouchableOpacity
+        style={SharedStyles.Styles.BackButtonImageOuter}
         onPress={() => {
           if (override !== undefined) {
             override();

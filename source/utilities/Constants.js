@@ -9,3 +9,5 @@ export const DEFAULT_NETWORK_PASS = '';
 export const VIDEO_API = '/api/video';
 export const EVENT_API = '/api/event';
 export const HEALTH_CHECK_API = '/api/alive';
+
+export const USE_HOTSPOT = false;
