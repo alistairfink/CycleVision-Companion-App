@@ -40,7 +40,7 @@ import {
 function WithoutNavigationFlow({navigation}) {
   const StartTime = navigation.getParam('StartTime');
   const [originalBrightness, setOriginalBrightness] = useState(1);
-  const dimBrightness = 1.0;
+  const dimBrightness = 0.0;
   const [videoURL, setVideoURL] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
 
