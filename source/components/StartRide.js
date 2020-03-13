@@ -90,6 +90,7 @@ function StartRide({navigation}) {
                   onPress={() =>
                     navigation.navigate('NavigationFlow', {
                       Destination: item,
+                      StartTime: new Date(),
                     })
                   }
                   style={StartRideStyles.SuggestionItem}>
@@ -104,7 +105,11 @@ function StartRide({navigation}) {
             />
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('WithoutNavigationFlow')}
+            onPress={() =>
+              navigation.navigate('WithoutNavigationFlow', {
+                StartTime: new Date(),
+              })
+            }
             style={StartRideStyles.WithoutNavigationButton}>
             <Text style={StartRideStyles.WithoutNavigationButtonText}>
               Continue Without Navigation

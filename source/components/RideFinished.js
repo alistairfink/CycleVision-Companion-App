@@ -25,19 +25,51 @@ import wifi from 'react-native-android-wifi';
 import BatteryIndicator from './BatteryIndicator';
 
 function RideFinished({navigation}) {
+	const StartTime = navigation.getParam('StartTime');
 	const [stats, setStats] = useState({
-		Distance: '100 km',
-		Speed: '10 km/h',
-		Length: '10 hours',
+		Distance: '0 km',
+		Speed: '0 km/h',
+		Time: '10 hours',
 	});
 
 	useEffect(() => {
+		let distance = '0 km';
+		let speed = '0 km/h';
+		let time = formatTime();
+		updateStats(distance, speed, time);
 		BackHandler.addEventListener('hardwareBackPress', backButtonHandler);
 
 		return () => {
 			BackHandler.removeEventListener('hardwareBackPress', backButtonHandler);
 		};
-	}, [backButtonHandler]);
+	}, [backButtonHandler, formatTime, updateStats]);
+
+	let formatTime = () => {
+		let EndTime = new Date();
+		let diff = new Date(EndTime - StartTime);
+		let hours = diff.getUTCHours();
+		let timeStr = '';
+		if (hours > 0) {
+			timeStr += hours.toString(10) + 'h ';
+		}
+
+		let minutes = diff.getUTCMinutes();
+		if (minutes > 0) {
+			timeStr += minutes.toString(10) + 'm ';
+		}
+
+		let seconds = diff.getUTCSeconds();
+		timeStr += seconds.toString(10) + 's';
+		return timeStr;
+	};
+
+	let updateStats = (distance, speed, time) => {
+		setStats({
+			Distance: distance,
+			Speed: speed,
+			Time: time,
+		});
+	};
 
 	let backButtonHandler = () => {
 		wifi.forceWifiUsage(true);
@@ -102,10 +134,10 @@ function RideFinished({navigation}) {
 							/>
 							<View style={RideFinishedStyles.ContentText}>
 								<Text style={RideFinishedStyles.ContentRowTitle}>
-									Trip Length
+									Trip Time
 								</Text>
 								<Text style={RideFinishedStyles.ContentRowTitleSubText}>
-									{stats.Length}
+									{stats.Time}
 								</Text>
 							</View>
 						</View>

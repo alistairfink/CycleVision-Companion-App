@@ -40,8 +40,9 @@ import {
 	EVENT_API,
 } from '../utilities/Constants';
 
-function NavigationFlow({navigation}) {
+function NavigationFlow({navigation, startTime}) {
 	const Destination = navigation.getParam('Destination');
+	const StartTime = navigation.getParam('StartTime');
 	const [navObject, setNavObject] = useState(null);
 	const [videoURL, setVideoURL] = useState(null);
 	const [showVideo, setShowVideo] = useState(false);
@@ -104,7 +105,9 @@ function NavigationFlow({navigation}) {
 
 	let endRide = () => {
 		stopNavigation();
-		navigation.navigate('RideFinished');
+		navigation.navigate('RideFinished', {
+			StartTime: StartTime,
+		});
 	};
 
 	let stopNavigation = () => {

@@ -38,8 +38,9 @@ import {
 } from '../utilities/Constants';
 
 function WithoutNavigationFlow({navigation}) {
+  const StartTime = navigation.getParam('StartTime');
   const [originalBrightness, setOriginalBrightness] = useState(1);
-  const dimBrightness = 0.0;
+  const dimBrightness = 1.0;
   const [videoURL, setVideoURL] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
 
@@ -117,7 +118,9 @@ function WithoutNavigationFlow({navigation}) {
 
   const navigateToRideFinished = () => {
     resetBrightness();
-    navigation.navigate('RideFinished');
+    navigation.navigate('RideFinished', {
+      StartTime: StartTime,
+    });
   };
 
   const handleEvent = data => {
