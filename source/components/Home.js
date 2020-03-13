@@ -32,6 +32,7 @@ import {
   DEVICE_PASS_KEY,
   DEFAULT_NETWORK_SSID,
   DEFAULT_NETWORK_PASS,
+  USE_HOTSPOT,
 } from '../utilities/Constants';
 import FetchWithTimeout from '../utilities/FetchWithTimeout';
 
@@ -41,42 +42,46 @@ function Home({navigation}) {
 
   useEffect(() => {
     let wifiSetup = async () => {
-      try {
-        let wifiSSID = await AsyncStorage.getItem(DEVICE_SSID_KEY);
-        if (wifiSSID === null) {
-          wifiSSID = DEFAULT_NETWORK_SSID;
-          await AsyncStorage.setItem(DEVICE_SSID_KEY, DEFAULT_NETWORK_SSID);
-        }
+      if (USE_HOTSPOT) {
+        try {
+          let wifiSSID = await AsyncStorage.getItem(DEVICE_SSID_KEY);
+          if (wifiSSID === null) {
+            wifiSSID = DEFAULT_NETWORK_SSID;
+            await AsyncStorage.setItem(DEVICE_SSID_KEY, DEFAULT_NETWORK_SSID);
+          }
 
-        let wifiPass = await AsyncStorage.getItem(DEVICE_PASS_KEY);
-        if (wifiPass === null) {
-          wifiPass = DEFAULT_NETWORK_PASS;
-          await AsyncStorage.setItem(DEVICE_PASS_KEY, DEFAULT_NETWORK_PASS);
-        }
+          let wifiPass = await AsyncStorage.getItem(DEVICE_PASS_KEY);
+          if (wifiPass === null) {
+            wifiPass = DEFAULT_NETWORK_PASS;
+            await AsyncStorage.setItem(DEVICE_PASS_KEY, DEFAULT_NETWORK_PASS);
+          }
 
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            title: 'Wifi Networks',
-            message:
-              'CycleVision requires access to connect to the device over wifi.',
-          },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          wifi.setEnabled(true);
-          wifi.findAndConnect(wifiSSID, wifiPass, found => {
-            if (found) {
-              wifi.forceWifiUsage(true);
-              setIsConnected(true);
-            } else {
-              cantConnect();
-            }
-          });
-        } else {
-          cantConnect();
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+            {
+              title: 'Wifi Networks',
+              message:
+                'CycleVision requires access to connect to the device over wifi.',
+            },
+          );
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            wifi.setEnabled(true);
+            wifi.findAndConnect(wifiSSID, wifiPass, found => {
+              if (found) {
+                wifi.forceWifiUsage(true);
+                setIsConnected(true);
+              } else {
+                cantConnect();
+              }
+            });
+          } else {
+            cantConnect();
+          }
+        } catch (err) {
+          console.warn(err);
         }
-      } catch (err) {
-        console.warn(err);
+      } else {
+        setIsConnected(true);
       }
     };
 
@@ -100,10 +105,14 @@ function Home({navigation}) {
 
   const start = () => {
     if (healthCheckURL !== null && isConnected) {
-      wifi.forceWifiUsage(true);
+      if (USE_HOTSPOT) {
+        wifi.forceWifiUsage(true);
+      }
       FetchWithTimeout(healthCheckURL, {}, 5000)
         .then(result => {
-          wifi.forceWifiUsage(false);
+          if (USE_HOTSPOT) {
+            wifi.forceWifiUsage(false);
+          }
           navigation.navigate('StartRide');
         })
         .catch(e => {
