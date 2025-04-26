@@ -1,5 +1,5 @@
 // API Key
-const API_KEY = 'AIzaSyB077uo46fGMiZLC8gdZcS353sbTAzzN28';
+const API_KEY = '';
 
 // URLs
 const SearchNearbyURL =
